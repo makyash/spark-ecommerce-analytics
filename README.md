@@ -13,3 +13,22 @@ This pipeline reads raw CSV data, performs, transformations, and generates key b
 - Pandas
 - Parquet 
 
+## Sample output for below 2 KPI
+
+- Event counts: 
+                                                       
+| event_type|event_count|
+|-----------|-----------|
+|   purchase|      39762|
+|     search|      70258|
+
+
+- Purchase totals by user:   
+
+|user_id|total_purchase_amount|
+|-------|---------------------|
+|   1941|              3383.29|
+|  15030|              3372.52|
+|  38191|               3298.3|
+
+

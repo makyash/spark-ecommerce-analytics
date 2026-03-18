@@ -14,6 +14,7 @@ df = spark.read.csv("data/events.csv", header =True, inferSchema=True)
 print("Raw schema:")
 df.printSchema()
 
+# convert event_time to timestampe for time_based analysis 
 df = df.withColumn("event_time", to_timestamp(col("event_time"))) 
 print("Sample data:")
 df.show(5, truncate = False)
@@ -46,6 +47,8 @@ purchase_by_hour = df.filter(col("event_type")=="purchase")\
                     .orderBy("event_hour")
 print("Purchases by hour:")
 purchase_by_hour.show()
-purchase_by_hour.write.mode("overwrite").parquet("output/purchase_by_hour")
+
+# Paritioned write 
+purchase_by_hour.write.mode("overwrite").partitionBy("event_hour").parquet("output/purchase_by_hour") 
 
 spark.stop() 
