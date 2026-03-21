@@ -13,7 +13,7 @@ This pipeline reads raw CSV data, performs, transformations, and generates key b
 - Pandas
 - Parquet 
 
-## Sample output for below 2 KPI
+## Sample output for below 3 KPI
 
 - Event counts: 
                                                        
@@ -31,4 +31,12 @@ This pipeline reads raw CSV data, performs, transformations, and generates key b
 |  15030|              3372.52|
 |  38191|               3298.3|
 
+
+- Total Revenue by Country
+
+|country|     Total_revenue|
+|-------|------------------|
+|     US| 4624113.180000001|
+|     IN|2014357.4100000006|
+|     UK|1332690.5700000003|
 
