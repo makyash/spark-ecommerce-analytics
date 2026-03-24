@@ -1,4 +1,4 @@
-from pyspark.sql.functions import min, avg
+from pyspark.sql.functions import min, avg, col ,first
 from pyspark.sql import SparkSession
 
 spark = SparkSession.builder \
@@ -27,14 +27,17 @@ users_df.show(5)
 
 # Create Products_df
 
-products_df = df.select("product_id","category","amount")\
-            .filter(df.event_type == "purchase")\
-            .groupBy("product_id","category")\
-            .agg(avg("amount").alias("avg_price"))
+
+products_df = df.filter(col("event_type") == "purchase") \
+                .groupBy("product_id") \
+                .agg(
+                        first("category").alias("category"),
+                        avg("amount").alias("avg_price")
+                )
 
 products_df.show(5)
 
-# products_df.write.mode("overwrite").format("csv").option("header",True).save("data/products")
+#products_df.write.mode("overwrite").format("csv").option("header",True).save("data/products")
 # Rename products/part_000 -> products.csv
 
 
