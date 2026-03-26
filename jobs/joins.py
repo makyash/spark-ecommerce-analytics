@@ -3,7 +3,7 @@
 # Products -> Dimension table
 
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, row_number, sum
+from pyspark.sql.functions import col, row_number, sum, to_date
 from pyspark.sql.window import Window
 
 spark = SparkSession.builder\
@@ -41,5 +41,10 @@ top_category_per_user = user_category_spend\
                     .filter(col("rank")==1)
 
 top_category_per_user.show(5)
+
+# partitioned write 
+enriched_df = enriched_df.withColumn("event_date", to_date("event_time"))
+enriched_df.printSchema()
+enriched_df.write.mode("overwrite").partitionBy("event_date").parquet("output/enriched_events")
 
 spark.stop()
