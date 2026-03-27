@@ -1,42 +1,79 @@
-# Spark E-commerce Analytics pipeline
+# 🚀 Spark E-commerce Analytics pipeline
 
-## Overview
-This project implements a batch data processing pipeline using Apache Spark to analyze e-commerce event data.
+## 📌 Overview
+This project implements an end-to-end batch data pipeline using Apache Spark to analyze e-commerce event data.
 
-Raw CSV → Data Cleaning → Transformations → Aggregations → Parquet Output
+The pipeline processes raw event logs, enriches them using dimension tables (users and products), and generates business-critical KPIs such as revenue trends, user behavior insights, and product performance metrics.
 
-This pipeline reads raw CSV data, performs, transformations, and generates key business KPIs
+Raw CSV → Data Cleaning → Transformations → Aggregations → Parquet Output.
 
-## Tech Stack
+
+## 🧱Tech Stack
 - Python 
 - Pyspark 
 - Pandas
 - Parquet 
 
-## Sample output for below 3 KPI
 
-- Event counts: 
-                                                       
-| event_type|event_count|
-|-----------|-----------|
-|   purchase|      39762|
-|     search|      70258|
+## 📊 Data Model
+The project follows a star schema design:
+
+Fact Table
+- events → user activity (views, purchases)
+
+Dimension Tables
+- users → user attributes
+- products → product metadata
+
+## 🔄 Data Pipeline Flow
+Raw Events CSV 
+
+   → Data Cleaning & Transformation.
+
+   → Join with Users & Products.
+
+   → KPI Aggregations.
+
+   → Partitioned Parquet Output.
 
 
-- Purchase totals by user:   
+## ⚙️ Features Implemented
+###  🔹 Data Processing
+* Spark DataFrame transformations
+* Timestamp parsing and enrichment
+* Data cleaning and normalization
+### 🔹 Joins
+* Fact-to-dimension joins (users, products)
+* Handling duplicate keys and join correctness
+* Broadcast joins for performance optimization
+### 🔹 Ranking Functions
+* First purchase per user
+* Running total of user spend
+* User-level ranking
+### 🔹 KPI Generation
+* Revenue by category
+* Revenue by country
+* Top users by spend
 
-|user_id|total_purchase_amount|
-|-------|---------------------|
-|   1941|              3383.29|
-|  15030|              3372.52|
-|  38191|               3298.3|
+### 🔹 Data Storage
+* Parquet format for efficient storage
+* Partitioned data by event date
+
+## ▶️ How to Run
+### 1. Setup environment
+- `python3 -m venv venv`
+- `source venv/bin/activate`
+- `pip install -r requirements.txt`
+
+### 2. Run the pipeline
+- `python jobs/batch_job.py`
 
 
-- Total Revenue by Country
+## 💡 Business Impact
 
-|country|     Total_revenue|
-|-------|------------------|
-|     US| 4624113.180000001|
-|     IN|2014357.4100000006|
-|     UK|1332690.5700000003|
+This pipeline enables:
 
+1. Better understanding of user behavior.
+2. Revenue trend analysis.
+3. Product performance tracking.
+4. Data-driven decision making.
